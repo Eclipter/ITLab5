@@ -1,6 +1,7 @@
 package by.bsu.dektiarev.algo;
 
 import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -31,7 +32,7 @@ public final class RyabkoEliasProcessor {
             int index = allPhrases.indexOf(phrase);
             allPhrases.remove(index);
             allPhrases.addFirst(phrase);
-            code.add(buildEliasCode(index));
+            code.add(buildEliasCode(index + 1));
         }
         return code;
     }
@@ -75,15 +76,11 @@ public final class RyabkoEliasProcessor {
     }
 
     private static String buildEliasCode(int number) {
-        String binary = Integer.toBinaryString(number).substring(1);
-        int length = binary.length() + 1;
-        StringBuilder binaryLength = new StringBuilder(Integer.toBinaryString(length));
-        int zerosToAdd = binaryLength.length() - 1;
-        for(int i = 0; i < zerosToAdd; i++) {
-            binaryLength.insert(0, "0");
-        }
-        binaryLength.append(binary);
-        return binaryLength.toString();
+        String binary = Integer.toBinaryString(number);
+        int length = binary.length();
+        String binaryLength = Integer.toBinaryString(length);
+        binaryLength = Strings.padStart(binaryLength, binaryLength.length() * 2 - 1, '0');
+        return binaryLength + binary.substring(1);
     }
 
 

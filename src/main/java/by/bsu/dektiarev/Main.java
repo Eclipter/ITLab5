@@ -21,6 +21,8 @@ public class Main {
         String text = TextLoader.loadText(FILENAME);
         String encodedText = TextLoader.convertToBinary(text);
 
+        System.out.println(encodedText.length());
+
         List<Double> xCoords = new ArrayList<>();
         List<Double> ycoords = new ArrayList<>();
 
@@ -29,6 +31,7 @@ public class Main {
 
         while(phraseLength != 16) {
             List<String> code = RyabkoEliasProcessor.encodeText(encodedText, phraseLength);
+            System.out.println(code.stream().mapToInt(String::length).sum());
             double medianPhraseLength = RyabkoEliasProcessor.getMedianPhraseLength(code);
             System.out.println("Length for " + phraseLength + ": " + medianPhraseLength);
 
